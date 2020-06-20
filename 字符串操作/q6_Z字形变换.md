@@ -25,3 +25,21 @@
 第一步：有几行res里面就建立几个空字符串，设立一个flag=-1, 每当到达第一行或者最后一行是flag = -flag, 控制向上移动还是向下移动。
 
 第二步：遍历字符串，依次输入进res, 最后输出res就是按行输出的
+![image](https://github.com/CamWu-cyber/leetcode/blob/master/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C/%E6%8D%95%E8%8E%B7.PNG)
+# 解答
+        class Solution:
+            def convert(self, s: str, numRows: int) -> str:
+                if len(s) < 1: return ""
+                if numRows < 2: return s
+
+                res = ["" for _ in range(numRows)]
+                i = 0
+                flag = -1
+                for c in s:
+                    res[i] += c
+                    if i == 0 or i == numRows-1:
+                        flag = -flag
+                    i += flag
+                return "".join(res)
+# 关键词
+记住那张图
