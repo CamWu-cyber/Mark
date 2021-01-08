@@ -1,0 +1,21 @@
+# 回溯法总结
+回溯法有固定框架，主要区别在于，终止条件和递归的参数。总结如下：
+
+### 终止条件主要有以下几个：
+##### 针对path的条件
+    if len(path) == k
+    if sum(path) > target
+    if sum(path) == target
+    if path not in res
+    if sorted(path) == path
+
+##### 针对s的条件
+    if not s
+    if start >= len(s)
+    if s[start] == '0'
+
+### 递归参数类型主要有一下几个：
+    backpack(path, nums)
+    backpack(path, s)
+    backpack(path, start)
+    backpack(path, cur_form)
