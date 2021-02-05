@@ -9,6 +9,7 @@
 3. 使用长度为 N 的窗口对文本内容执行字符级滑动取词，将结果存入有序列表。
 
         class Solution:
+          # 文本过滤
           def textFilter(self, text):
             res = ''
             for c in text:
@@ -17,7 +18,8 @@
                   c = c.lower()
                   res += c
             return res
-
+          
+          # 滑动取词
           def ngram(self, text, n):
             res = []
             tf = self.textFilter(text)
