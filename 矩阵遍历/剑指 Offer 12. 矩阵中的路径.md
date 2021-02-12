@@ -22,17 +22,22 @@
     class Solution:
         def exist(self, board, word):
             def dfs(i, j, k):
+                # 终止条件
                 if not 0<=i<len(board) or not 0<=j<len(board[0]) or board[i][j] != word[k]:
                     return False
                 if k == len(word)-1:
                     return True
+                # 开始回溯
                 board[i][j] = ''
+                # 上下左右递归
                 res = dfs(i+1, j, k+1) or dfs(i-1, j, k+1) or dfs(i, j+1, k+1) or dfs(i, j-1, k+1)
                 board[i][j] = word[k]
                 return res
 
             for i in range(len(board)):
                 for j in range(len(board[0])):
+                    # 在循环内部就开始判断了，很神奇
+                    # 我尝试在循环之外返回结果，但是报错，目前还不清楚原因，日后再深究吧，暂且背下来
                     if dfs(i, j, 0):
                         return True
             return False
