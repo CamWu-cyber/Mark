@@ -18,3 +18,30 @@
 
 思路：dfs+回溯。i，j表示坐标，k表示word中的索引。每遍历一个点，就上、下、左、右递归，终止条件是当i或j超过边界或矩阵的值不等于word中的字母时（就是上下左右都找不到下一个字母了），返回False，当k == len(word)-1时（word的字母都找到了），返回True。在dfs的迭代中，还需要回溯操作，递归之前，让此点的值为‘’，即dp[i][j] = ''，表示此点已经被访问过，不得重复访问，递归结束后，恢复此点的值，即dp[i][j] = word[k]，因为只查找word中的字母，所以只需要也只能恢复word中的字母。具体框架，请看代码，是一个内嵌的方法。
 
+    #!/usr/bin/python
+    class Solution:
+        def exist(self, board, word):
+            def dfs(i, j, k):
+                if not 0<=i<len(board) or not 0<=j<len(board[0]) or board[i][j] != word[k]:
+                    return False
+                if k == len(word)-1:
+                    return True
+                board[i][j] = ''
+                res = dfs(i+1, j, k+1) or dfs(i-1, j, k+1) or dfs(i, j+1, k+1) or dfs(i, j-1, k+1)
+                board[i][j] = word[k]
+                return res
+
+            for i in range(len(board)):
+                for j in range(len(board[0])):
+                    if dfs(i, j, 0):
+                        return True
+            return False
+
+    if __name__ == '__main__':
+        obj = Solution()
+        print(obj.exist([["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], "ABCCED"))
+        print(obj.exist([["a","b"],["c","d"]], "abcd"))
+
+#### 运行结果
+    True
+    False
