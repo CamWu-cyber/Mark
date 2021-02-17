@@ -17,6 +17,8 @@
 
 2. 转移方程 dp[i] = max(j段绳子最大值*剩下i-j段绳子最大值)，其中j段绳子最大值可以分为切还是不切：max(j,dp[j])，同理有剩下i-j段绳子最大值：max(i-j,dp[i-j])
 
+3. base case：dp[1] = 1 只有一米绳子的时候，最大乘积为1.
+
     #!/usr/bin/python
     class Solution:
         def cuttingRope(self, n: int) -> int:
