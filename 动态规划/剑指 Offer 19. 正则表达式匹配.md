@@ -30,27 +30,27 @@
             def isMatch(self, s, p):
                 if not s or not p:
                     return False
-                m = len(s) + 1
-                n = len(p) + 1
+                m = len(s)+1
+                n = len(p)+1
                 dp = [[False for _ in range(n)] for _ in range(m)]
                 dp[0][0] = True
                 # base case
                 for j in range(2, n, 2):
-                    dp[0][j] = dp[0][j - 2] and p[j - 1] == '*'
+                    dp[0][j] = dp[0][j-2] and p[j-1] == '*'
                 # 状态转移
                 for i in range(1, m):
                     for j in range(1, n):
-                        if s[i - 1] == p[j - 1] or p[j - 1] == '.':
-                            dp[i][j] = dp[i - 1][j - 1]
-                        elif p[j - 1] == '*':
-                            if s[i - 1] != p[j - 2]:
-                                dp[i][j] = dp[i][j - 2]
-                            elif s[i - 1] == p[j - 2] or p[j - 2] == '.':
-                                dp[i][j] = dp[i][j - 2] or dp[i - 1][j]
+                        if s[i-1] == p[j-1] or p[j-1] == '.':
+                            dp[i][j] = dp[i-1][j-1]
+                        elif p[j-1] == '*':
+                            # 此处必须用这个if else写，不许交换条件，否则报错
+                            if s[i-1] == p[j-2] or p[j-2] == '.':
+                                dp[i][j] = dp[i][j-2] or dp[i-1][j]
+                            else:
+                                dp[i][j] = dp[i][j-2]
                         else:
                             dp[i][j] = False
                 return dp[-1][-1]
-
 
         if __name__ == '__main__':
             obj = Solution()
