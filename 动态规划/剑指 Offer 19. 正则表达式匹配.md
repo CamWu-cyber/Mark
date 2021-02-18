@@ -17,4 +17,4 @@
 
 思路：二维dp，行为s，列为p，开头是空字符串。此题的重点是分清楚哪些情况是匹配的，那么其他的情况就都是不匹配的了。
 
-情况1：
+![8](https://github.com/CamWu-cyber/leetcode/blob/master/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/8.JPG)
