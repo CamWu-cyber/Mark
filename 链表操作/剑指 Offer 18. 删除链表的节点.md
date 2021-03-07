@@ -60,5 +60,5 @@
         head_1 = obj.deleteNode(head, 5)
         print(obj.showLink(head_1))
 
-####运行结果
+#### 运行结果
     [4, 1, 9]
