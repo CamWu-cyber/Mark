@@ -46,13 +46,13 @@
             return self.B.pop()
 
 
-    if __name__ == '__main__':
-        obj = CQueue()
-        obj.appendTail(3)    # 压入3
-        ans_1 = obj.deleteHead()  # 弹出3
-        ans_2 = obj.deleteHead()  # 为空，弹出-1
-        print(ans_1)
-        print(ans_2)
+        if __name__ == '__main__':
+            obj = CQueue()
+            obj.appendTail(3)    # 压入3
+            ans_1 = obj.deleteHead()  # 弹出3
+            ans_2 = obj.deleteHead()  # 为空，弹出-1
+            print(ans_1)
+            print(ans_2)
         
 #### 运行结果
     3
