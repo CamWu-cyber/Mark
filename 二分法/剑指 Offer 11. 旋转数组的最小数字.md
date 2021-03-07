@@ -19,6 +19,7 @@
             right = len(numbers)-1
             while left <= right:
                 mid = (left+right)//2
+                # 全部都跟nums[right]作比较，因为此题本质上是在寻找 右排序数组 的首个元素，即旋转点。
                 if numbers[mid] > numbers[right]:
                     left = mid+1
                 elif numbers[mid] < numbers[right]:
