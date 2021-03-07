@@ -10,21 +10,21 @@
 
 思路：构建counter()字典，再依次比较即可。
 
-import collections
-class Solution:
-    def majorityElement(self, nums):
-        counter = collections.Counter(nums)
-        n = len(nums)
-        res = float('inf')
-        for k, v in counter.items():
-            if v > n//2:
-                res = k
-                break
-        return  res
+    import collections
+    class Solution:
+        def majorityElement(self, nums):
+            counter = collections.Counter(nums)
+            n = len(nums)
+            res = float('inf')
+            for k, v in counter.items():
+                if v > n//2:
+                    res = k
+                    break
+            return  res
 
-if __name__ == '__main__':
-    obj = Solution()
-    print(obj.majorityElement([1, 2, 3, 2, 2, 2, 5, 4, 2]))
+    if __name__ == '__main__':
+        obj = Solution()
+        print(obj.majorityElement([1, 2, 3, 2, 2, 2, 5, 4, 2]))
     
 #### 运行结果
     2
