@@ -15,21 +15,22 @@
 
 3. base case: dp[0]=1 ,dp[1]=2 or 1
 
-    class Solution:
-        def translateNum(self, num):
-            s = str(num)
-            if len(s) < 2:
-                return 1
-            dp = [0] * len(s)
-            dp[0] = 1
-            dp[1] = 2 if int(s[0] + s[1]) < 26 else 1
-            for i in range(2, len(s)):
-                dp[i] = dp[i - 1] + dp[i - 2] if int(s[i - 1] + s[i]) < 26 and s[i - 1] != '0' else dp[i - 1]
-            return dp[-1]
 
-    if __name__ == '__main__':
-        obj = Solution()
-        print(obj.translateNum(12258))
+        class Solution:
+            def translateNum(self, num):
+                s = str(num)
+                if len(s) < 2:
+                    return 1
+                dp = [0] * len(s)
+                dp[0] = 1
+                dp[1] = 2 if int(s[0] + s[1]) < 26 else 1
+                for i in range(2, len(s)):
+                    dp[i] = dp[i - 1] + dp[i - 2] if int(s[i - 1] + s[i]) < 26 and s[i - 1] != '0' else dp[i - 1]
+                return dp[-1]
+
+        if __name__ == '__main__':
+            obj = Solution()
+            print(obj.translateNum(12258))
         
 #### 运行结果
     5
