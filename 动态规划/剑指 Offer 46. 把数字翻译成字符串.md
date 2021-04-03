@@ -36,11 +36,11 @@
     5
 
 
-**增加一个递归方法**
+**增加一个递归到动态规划的方法**
 
         #!/usr/bin/python
         class Solution:
-            def translateNum(self, num):
+            def translateNum1(self, num):
                 def process(num, index):
                     # 找到一个答案，返回1
                     if index == len(num):
@@ -50,25 +50,54 @@
                         return 0
                     # 碰到1，要么1单独处理，要么1和后面一个数一起处理
                     if num[index] == '1':
-                        res = process(num, index+1)
-                        if index+1 < len(num):
-                            res += process(num, index+2)
+                        res = process(num, index + 1)
+                        if index + 1 < len(num):
+                            res += process(num, index + 2)
                         return res
                     # 碰到2，要么2单独处理，要么2和后面一个数一起处理，但是后面一位得在0到6之间
                     if num[index] == '2':
-                        res = process(num, index+1)
-                        if index+1 < len(num) and '0'<=num[index+1]<='6':
-                            res += process(num, index+2)
+                        res = process(num, index + 1)
+                        if index + 1 < len(num) and '0' <= num[index + 1] <= '6':
+                            res += process(num, index + 2)
                         return res
                     # 碰到3到9，只能单独处理，无法与后面的数结合
-                    return process(num, index+1)
-                res = 0
+                    return process(num, index + 1)
+
                 res = process(num, 0)
                 return res
+            
+            # 根据递归，参数只有i一个，所以是一个一位的dp，i的范围是从0到len(num)+1
+            # base case：dp[n] = 1，返回值是递归的入口，即dp[0]，所以遍历的过程就是从右往左遍历
+            # 观察发现，dp[i]的值只与dp[i+1]和dp[i+2]有关
+            # 递归中的res就是dp[i]，不需要管题意，挨个改就完了。
+            def translateNum2(self, num):
+                if len(num) < 2:
+                    return 1
+                n = len(num)
+                dp = [0] * (n + 1)
+                dp[n] = 1
+                for i in range(n - 1, -1, -1):
+                    if num[i] == '0':
+                        dp[i] = 0
+                    elif num[i] == '1':
+                        dp[i] = dp[i + 1]
+                        if i + 1 < n:
+                            dp[i] += dp[i + 2]
+                    elif num[i] == '2':
+                        dp[i] = dp[i + 1]
+                        if i + 1 < n and '0' <= num[i + 1] <= '6':
+                            dp[i] += dp[i + 2]
+                    else:
+                        dp[i] = dp[i + 1]
+                return dp[0]
+
+
 
         if __name__ == '__main__':
             obj = Solution()
-            print(obj.translateNum('12258'))
+            print(obj.translateNum1('12258'))
+            print(obj.translateNum2('12258'))
             
 #### 运行结果
-        5
+    5
+    5
