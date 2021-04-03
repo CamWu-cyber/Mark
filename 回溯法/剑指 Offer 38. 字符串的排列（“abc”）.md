@@ -16,25 +16,25 @@
 
 2. 当然了，有官方答案。
 
-    class Solution:
-        def permutation(self, s):
-            # if not s:
-            #     return []
-            # n = len(s)
-            # def backtrack(path, s):
-            #     if len(path) == n and path not in res:
-            #         # 如果不用ans，aab时就是正确的，太奇怪了
-            #         ans = ''.join(path)
-            #         res.append(ans)
-            #         return None
-            #     for i in range(len(s)):
-            #         path.append(s[i])
-            #         backtrack(path, s[:i]+s[i+1:])
-            #         path.pop()
-            # path = []
-            # res = []
-            # backtrack(path, s)
-            # return res
+        class Solution:
+            def permutation(self, s):
+                # if not s:
+                #     return []
+                # n = len(s)
+                # def backtrack(path, s):
+                #     if len(path) == n and path not in res:
+                #         # 如果不用ans，aab时就是正确的，太奇怪了
+                #         ans = ''.join(path)
+                #         res.append(ans)
+                #         return None
+                #     for i in range(len(s)):
+                #         path.append(s[i])
+                #         backtrack(path, s[:i]+s[i+1:])
+                #         path.pop()
+                # path = []
+                # res = []
+                # backtrack(path, s)
+                # return res
 
             s = sorted(list(s))
 
