@@ -34,3 +34,41 @@
         
 #### 运行结果
     5
+
+
+**增加一个递归方法**
+
+        #!/usr/bin/python
+        class Solution:
+            def translateNum(self, num):
+                def process(num, index):
+                    # 找到一个答案，返回1
+                    if index == len(num):
+                        return 1
+                    # 碰到0，返回0
+                    if num[index] == '0':
+                        return 0
+                    # 碰到1，要么1单独处理，要么1和后面一个数一起处理
+                    if num[index] == '1':
+                        res = process(num, index+1)
+                        if index+1 < len(num):
+                            res += process(num, index+2)
+                        return res
+                    # 碰到2，要么2单独处理，要么2和后面一个数一起处理，但是后面一位得在0到6之间
+                    if num[index] == '2':
+                        res = process(num, index+1)
+                        if index+1 < len(num) and '0'<=num[index+1]<='6':
+                            res += process(num, index+2)
+                        return res
+                    # 碰到3到9，只能单独处理，无法与后面的数结合
+                    return process(num, index+1)
+                res = 0
+                res = process(num, 0)
+                return res
+
+        if __name__ == '__main__':
+            obj = Solution()
+            print(obj.translateNum('12258'))
+            
+#### 运行结果
+        5
