@@ -35,7 +35,7 @@
  #### 运行结果
     1
 
-### C++
+#### C++
 
     #include<iostream>
     #include<vector>
@@ -74,4 +74,5 @@
         return 0;
     }
     
-    运行结果：1
+#### 运行结果
+    1
