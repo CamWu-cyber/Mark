@@ -34,3 +34,44 @@
   
  #### 运行结果
     1
+
+### C++
+
+    #include<iostream>
+    #include<vector>
+    using namespace std;
+
+
+    class Solution {
+    public:
+        int minArray(vector<int>& nums) {
+            if (nums.empty()) {
+                return 0;
+            }
+            int left = 0;
+            int right = nums.size() - 1;
+            while (left <= right) {
+                int mid = (left + right) / 2;
+                if (nums[mid] < nums[right]) {
+                    right = mid;
+                }
+                else if (nums[mid] > nums[right]) {
+                    left = mid + 1;
+                }
+                else {
+                    right -= 1;
+                }
+            }
+            return nums[left];
+        }
+    };
+
+    int main() {
+        vector<int> nums = { 3,4,5,1,2 };
+        Solution obj;
+        cout << obj.minArray(nums) << endl;
+        system("pause");
+        return 0;
+    }
+    
+    运行结果：1
