@@ -66,90 +66,90 @@
 
 ### c++
 
-        // 求二叉搜索树第 k大的节点” 可转化为求 “二叉搜索树的中序遍历倒序的第k 个节点”
-        // 1、按照右->根->左的顺序（中序遍历倒序）遍历二叉树
-        // 2、我们每次遍历一个节点的时候就让k--，当k减为0时，我们就找到了第k大的节点。
+    // 求二叉搜索树第 k大的节点” 可转化为求 “二叉搜索树的中序遍历倒序的第k 个节点”
+    // 1、按照右->根->左的顺序（中序遍历倒序）遍历二叉树
+    // 2、我们每次遍历一个节点的时候就让k--，当k减为0时，我们就找到了第k大的节点。
 
-        #include<iostream>
-        #include<stack>
-        using namespace std;
+    #include<iostream>
+    #include<stack>
+    using namespace std;
 
-        struct TreeNode {
-            int val;
-            TreeNode* left;
-            TreeNode* right;
-        };
+    struct TreeNode {
+        int val;
+        TreeNode* left;
+        TreeNode* right;
+    };
 
-        class Solution {
-        public:
-            TreeNode* createTree(int* list, int len, int i) {
-                if (list[i] == 0) {
-                    return NULL;
-                }
-                TreeNode* root = new TreeNode;
-                root->val = list[i];
-                int lnode = i * 2 + 1;
-                int rnode = i * 2 + 2;
-                root->left = lnode <= len - 1 ? createTree(list, len, lnode) : NULL;
-                root->right = rnode <= len - 1 ? createTree(list, len, rnode) : NULL;
-                return root;
+    class Solution {
+    public:
+        TreeNode* createTree(int* list, int len, int i) {
+            if (list[i] == 0) {
+                return NULL;
             }
-
-            // 递归
-            int kthLargest(TreeNode* root, int k) {
-                if (root == NULL || k <= 0) {
-                    return 0;
-                }
-                int res;
-                traversal(root, res, k);
-                return res;
-            }
-            void traversal(TreeNode* root, int &res, int &k) {
-                if (root == NULL) {
-                    return;
-                }
-                traversal(root->right, res, k);
-                if (!--k) {
-                    res = root->val;
-                }
-                traversal(root->left, res, k);
-            }
-
-            // 迭代 中序遍历模板基础上，把左右子树交换一下顺序
-            int kthLargest_1(TreeNode* root, int k) {
-                if (root == NULL || k <= 0) {
-                    return 0;
-                }
-                stack<TreeNode*> st;
-                TreeNode* cur = root;
-                while (cur != NULL || !st.empty()) {
-                    if (cur != NULL) {
-                        st.push(cur);    // 如果栈不为空，就往继续右子树找
-                        cur = cur->right;
-                    }
-                    else {
-                        cur = st.top();
-                        st.pop();
-                        if (!--k) {     // 找到了，直接return
-                            return cur->val;
-                        }
-                        cur = cur->left;
-                    }
-                }
-            }
-        };
-
-        int main() {
-            Solution obj;
-            int list[] = { 5,3,6,2,4,NULL,NULL,1 };
-            int k = 3;
-            TreeNode* root = obj.createTree(list, sizeof(list) / sizeof(list[0]), 0);
-            int res = obj.kthLargest(root, k);
-            cout << res << endl;
-
-            int res_1 = obj.kthLargest_1(root, k);
-            cout << res_1 << endl;
+            TreeNode* root = new TreeNode;
+            root->val = list[i];
+            int lnode = i * 2 + 1;
+            int rnode = i * 2 + 2;
+            root->left = lnode <= len - 1 ? createTree(list, len, lnode) : NULL;
+            root->right = rnode <= len - 1 ? createTree(list, len, rnode) : NULL;
+            return root;
         }
+
+        // 递归
+        int kthLargest(TreeNode* root, int k) {
+            if (root == NULL || k <= 0) {
+                return 0;
+            }
+            int res;
+            traversal(root, res, k);
+            return res;
+        }
+        void traversal(TreeNode* root, int &res, int &k) {
+            if (root == NULL) {
+                return;
+            }
+            traversal(root->right, res, k);
+            if (!--k) {
+                res = root->val;
+            }
+            traversal(root->left, res, k);
+        }
+
+        // 迭代 中序遍历模板基础上，把左右子树交换一下顺序
+        int kthLargest_1(TreeNode* root, int k) {
+            if (root == NULL || k <= 0) {
+                return 0;
+            }
+            stack<TreeNode*> st;
+            TreeNode* cur = root;
+            while (cur != NULL || !st.empty()) {
+                if (cur != NULL) {
+                    st.push(cur);    // 如果栈不为空，就往继续右子树找
+                    cur = cur->right;
+                }
+                else {
+                    cur = st.top();
+                    st.pop();
+                    if (!--k) {     // 找到了，直接return
+                        return cur->val;
+                    }
+                    cur = cur->left;
+                }
+            }
+        }
+    };
+
+    int main() {
+        Solution obj;
+        int list[] = { 5,3,6,2,4,NULL,NULL,1 };
+        int k = 3;
+        TreeNode* root = obj.createTree(list, sizeof(list) / sizeof(list[0]), 0);
+        int res = obj.kthLargest(root, k);
+        cout << res << endl;
+
+        int res_1 = obj.kthLargest_1(root, k);
+        cout << res_1 << endl;
+    }
         
 #### 运行结果
     4
