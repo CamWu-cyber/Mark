@@ -65,3 +65,57 @@
 #### 运行结果
     True
     False
+
+#### C++
+
+         #include<iostream>
+         #include<vector>
+         using namespace std;
+
+         struct TreeNode {
+                  int val;
+                  TreeNode* left;
+                  TreeNode* right;
+         };
+
+         class Solution {
+         public:
+                  bool res;
+
+                  bool verifyPostorder(vector<int> postorder) {
+                           return traversal(postorder, 0, postorder.size() - 1);
+                  }
+
+                  bool traversal(vector<int>& postorder, int left, int right) {
+                           // 终止条件
+                           if (left >= right) return true;
+                           int i = left;
+                           int root = postorder[right];
+                           while (postorder[i] < root) {
+                                    i++;
+                           }
+                           int mid = i;
+                           while (postorder[i] > root) {
+                                    i++;
+                           }
+                           if (i == right) {
+                                    res = true;
+                           }
+                           else {
+                                    res = false;
+                           }
+                           return res && traversal(postorder, left, mid - 1) && traversal(postorder, mid, right - 1);
+                  }
+         };
+
+         int main() {
+                  Solution obj;
+                  vector<int> postorder = { 1,3,2,6,5 };
+                  cout << boolalpha << obj.verifyPostorder(postorder) << endl;    // 打印true，加boolalpha
+                  vector<int> postorder_1 = { 1,6,3,2,5 };
+                  cout << boolalpha << obj.verifyPostorder(postorder_1) << endl;    // 打印true，加boolalpha
+         }
+         
+ #### 运行结果
+         true
+         false
