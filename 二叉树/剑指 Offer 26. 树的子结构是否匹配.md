@@ -68,3 +68,89 @@ B是A的子结构， 即 A中有出现和B相同的结构和节点值。
       
 #### 运行结果
     True
+
+#### C++
+
+         #include<iostream>
+         #include<vector>
+         #include<stack>
+         using namespace std;
+
+         struct TreeNode {
+                  int val;
+                  TreeNode* left;
+                  TreeNode* right;
+                  TreeNode(int x) :val(x), left(NULL), right(NULL) {};
+         };
+
+         class Solution {
+         public:
+                  TreeNode* createTree(int* list, int len, int i) {
+                           if (list[i] == '#') {
+                                    return NULL;
+                           }
+                           TreeNode* root = new TreeNode(list[i]);
+                           int lnode = i * 2 + 1;
+                           int rnode = i * 2 + 2;
+                           root->left = lnode <= len - 1 ? createTree(list, len, lnode) : NULL;
+                           root->right = rnode <= len - 1 ? createTree(list, len, rnode) : NULL;
+                           return root;
+                  }
+
+                  TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) {
+                           if (t1 == NULL) return t2; // 如果t1为空，合并之后就应该是t2
+                           if (t2 == NULL) return t1; // 如果t2为空，合并之后就应该是t1
+                           // 修改了t1的数值和结构
+                           t1->val += t2->val;                             // 中
+                           t1->left = mergeTrees(t1->left, t2->left);      // 左
+                           t1->right = mergeTrees(t1->right, t2->right);   // 右
+                           return t1;
+                  }
+
+                  // 中序遍历
+                  vector<int> midTraversal_1(TreeNode* root) {
+                           if (root == NULL) {
+                                    return {};
+                           }
+                           vector<int>res;
+                           stack<TreeNode*>st;
+                           TreeNode* cur = root;
+                           while (cur != NULL || !st.empty()) {
+                                    if (cur != NULL) {
+                                             st.push(cur);   // 压入栈，继续找左子树
+                                             cur = cur->left;
+                                    }
+                                    else {
+                                             cur = st.top();
+                                             st.pop();
+                                             res.push_back(cur->val);
+                                             cur = cur->right;
+                                    }
+                           }
+                           return res;
+                  }
+         };
+
+         int main() {
+                  Solution obj;
+                  int list_1[] = { 1,3,2,5 };
+                  TreeNode* root_1 = obj.createTree(list_1, sizeof(list_1) / sizeof(list_1[0]), 0);
+                  int list_2[] = { 2,1,3,'#',4,'#',7};
+                  TreeNode* root_2 = obj.createTree(list_2, sizeof(list_2) / sizeof(list_2[0]), 0);
+                  TreeNode* node = obj.mergeTrees(root_1, root_2);
+                  vector<int> res = obj.midTraversal_1(node);
+                  for (int i = 0; i < res.size(); i++) {
+                           if (i == 0) {
+                                    cout << "[" << res[i] << ",";
+                           }
+                           else if (i == res.size() - 1) {
+                                    cout << res[i] << "]";
+                           }
+                           else {
+                                    cout << res[i] << ",";
+                           }
+                  }
+         }
+         
+ #### 运行结果
+         true
