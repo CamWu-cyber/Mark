@@ -25,3 +25,35 @@
 
 # 运行结果
     We%20are%20happy.
+
+### C++
+
+    #include<iostream>
+    #include<string>
+    using namespace std;
+
+    class Solution {
+    public:
+        string replaceSpace(string s) {
+            string result;
+            for (auto c : s) {
+                if (c == ' ') {
+                    result.push_back('%');
+                    result.push_back('2');
+                    result.push_back('0');
+                }
+                else {
+                    result.push_back(c);
+                }
+            }
+            return result;
+        }
+    };
+
+    int main() {
+        Solution obj;
+        string res = obj.replaceSpace("We are happy.");
+        cout << res;
+    }
+#### 运行结果
+    We%20are%20happy.
