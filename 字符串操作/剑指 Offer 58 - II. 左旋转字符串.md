@@ -16,3 +16,30 @@
 * 反转区间为n到末尾的子串
 * 反转整个字符串
 
+        #include<iostream>
+        using namespace std;
+
+        class Solution {
+        public:
+            // 解法1
+            string reverseLeftWords(string s, int n) {
+                string left = s.substr(0, n);
+                string right = s.substr(n, s.size() - n);
+                return right + left;
+            }
+
+            // 解法2
+            string reverseLeftWords_1(string s, int n) {
+                reverse(s.begin(), s.begin() + n);
+                reverse(s.begin() + n, s.end());
+                reverse(s.begin(), s.end());
+                return s;
+            }
+        };
+
+        int main() {
+            Solution obj;
+            cout<< obj.reverseLeftWords_1("abcdef", 2);
+        }
+#### 运行结果
+    cdefab
